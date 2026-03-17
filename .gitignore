@@ -1,0 +1,10 @@
+# ignore compiled JS
+*.js
+*.js.map
+
+# แต่อนุญาตบางไฟล์สำคัญ (ถ้ามี)
+!index.js
+!config.js
+
+# node
+node_modules
