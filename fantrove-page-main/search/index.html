@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/lang-proxy.js"></script>
+  <script src="assets/js/lang-sync.js"></script>
+  
+  <meta name="theme-color" content="#13b47f" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search | Fantrove Verse</title>
+
+  <!-- Critical CSS (optimized for preload) -->
+  <link rel="preload" href="/assets/css/search.min.css" as="style" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/css/search.min.css" /></noscript>
+
+  <link rel="preload" href="/assets/css/bg.min.css" as="style" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/css/bg.min.css" /></noscript>
+
+  <link rel="stylesheet" href="/assets/css/general.min.css" media="all" />
+  <!-- Compact / theme-specific overrides for search (loads after default search styles) -->
+  <link rel="stylesheet" href="/assets/css/search-compact-overrides.css" />
+
+  <link rel="icon" type="image/x-icon" href="/assets/images/fantrove-hub360.ico" />
+</head>
+<body>
+  <header class="search-header">
+    <form id="searchForm" autocomplete="off" role="search" aria-label="ระบบค้นหา FanTrove">
+      <div class="search-input-wrapper">
+        <span class="search-input-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#13b47f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </span>
+        <input 
+          type="search" 
+          id="searchInput" 
+          name="q" 
+          placeholder="ค้นหาข้อมูล..." 
+          inputmode="search" 
+          enterkeyhint="search" 
+          aria-label="ค้นหาข้อมูลใน Fantrove"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+    </form>
+  </header>
+
+  <div class="search-main-layout">
+    <nav class="search-filters-panel" aria-label="ตัวกรองการค้นหา">
+      <div class="filter-section">
+        <label  class="filter-group-label">ประเภท</label>
+        <select id="typeFilter" aria-label="เลือกประเภทข้อมูล"></select>
+      </div>
+      <div class="filter-section">
+        <label class="filter-group-label">หมวดหมู่</label>
+        <select id="categoryFilter" style="display:none" aria-label="เลือกหมวดหมู่ข้อมูล"></select>
+      </div>
+    </nav>
+
+    <main id="searchResults" aria-live="polite" aria-label="ผลการค้นหา" tabindex="0">
+      <!-- ผลลัพธ์การค้นหาจะมาแสดงที่นี่ -->
+    </main>
+  </div>
+
+  <div id="copyToast" aria-live="assertive" role="alert" aria-atomic="true"></div>
+
+  <script type="module" src="/assets/js/con-data-service/con-data-registry.js"></script>
+  <script type="module" src="/assets/js/con-data-service/con-data-service.js"></script>
+  <script src="/assets/js/render-engine.js"></script>
+  <script src="/assets/js/search-engine.js"></script>
+  <script src="/assets/js/search-ui.js"></script>
+  <script defer src="/assets/js/modern-navigation.min.js"></script>
+  <script defer src="/assets/js/back-to-top.min.js"></script>
+  <script defer src="/assets/js/version.min.js"></script>
+
+  <script defer src="/assets/js/lang-links.js"></script>
+  <script src="/fantrove-console-bridge.js"></script>
+</body>
+</html>

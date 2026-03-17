@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Discover | Fantrove Verse</title>
+
+  <meta name="theme-color" content="#13b47f" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- DNS prefetch + preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <!--
+    CSS LOADING ORDER (3 ไฟล์แยกชัดเจน):
+    1. loading.css   — overlay + notification (preload: ต้องพร้อมก่อน JS แสดง overlay)
+    2. header.min.css — header + nav เท่านั้น
+    3. styles.min.css — main content styles
+
+    loading.css ใช้ preload + onload pattern เหมือนกัน
+    แต่ priority สูงกว่าเพราะ overlay แสดงทันทีที่ JS โหลด
+  -->
+
+  <!-- loading.css: preload ก่อนเลย — overlay ต้องพร้อมทันที -->
+  <link rel="preload" href="/assets/css/loading.css" as="style" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/css/loading.css" /></noscript>
+
+  <!-- header.min.css -->
+  <link rel="preload" href="/assets/css/header.min.css" as="style" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/css/header.min.css" /></noscript>
+
+  <!-- styles.min.css -->
+  <link rel="preload" href="/assets/css/styles.min.css" as="style" onload="this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/assets/css/styles.min.css" /></noscript>
+
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="/assets/css/bg.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="/assets/css/bg.min.css" /></noscript>
+
+  <!-- Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&display=swap" media="print" onload="this.media='all'" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/fantrove-hub360.ico" />
+
+  <style>
+    html { background: #fff; }
+    body { margin: 0; opacity: 1; }
+    html, body {
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    header { min-height: 90px; contain: layout style; }
+  </style>
+
+  <!-- GTM -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+  </script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PJ397CLS"></script>
+
+  <!-- Cookiebot -->
+  <script
+    id="Cookiebot"
+    src="https://consent.cookiebot.com/uc.js"
+    data-cbid="16a70d79-a7a7-4b66-89da-afb49e453c67"
+    data-blockingmode="auto"
+    type="text/javascript"
+    async
+  ></script>
+
+  <!-- Google Ads -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8233915433564101" crossorigin="anonymous"></script>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4DGR81NZ6"></script>
+  <script>
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R4DGR81NZ6');
+    gtag('consent', 'default', {
+      ad_personalization: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', false);
+  </script>
+</head>
+
+<body>
+  <!-- GTM noscript -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ397CLS"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- Header -->
+  <header>
+    <div class="logo" data-translate="logo-header"></div>
+    <nav>
+      <ul id="nav-list"></ul>
+    </nav>
+  </header>
+
+  <!-- Sub-nav -->
+  <div id="sub-nav" class="hi" style="display:none">
+    <div class="hj">
+      <div id="sub-buttons-container"></div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main>
+    <div id="content-loading"></div>
+  </main>
+
+  <!-- Language system: sync -->
+  <script src="/assets/js/lang-proxy.js"></script>
+  <script src="/assets/js/lang-sync.js"></script>
+  <script src="/assets/js/language.min.js"></script>
+
+  <!-- Render engine -->
+  <script src="/assets/js/render-engine.js"></script>
+  <script defer src="/assets/js/intelligent-system.min.js"></script>
+
+  <!-- Deferred JS -->
+  <script defer src="/assets/js/version.min.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/modern-navigation.min.js"></script>
+  <script defer src="/assets/js/back-to-top.min.js"></script>
+  <script defer src="/assets/js/copyNotification.min.js"></script>
+  <script defer src="/assets/js/lang-links.js"></script>
+  <script defer src="/assets/js/fantrove-console-bridge.js"></script>
+</body>
+</html>

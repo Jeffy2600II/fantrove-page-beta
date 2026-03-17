@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="s.css" type="text/css" media="all" />
+</head>
+
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="cp-icon" width="24" height="24" viewBox="0 0 24 24" color="transparent" role="img" aria-label="house icon">
+  <style>
+    /* ค่าเริ่มต้นสำหรับไอคอนนี้ (สามารถ override จากภายนอกได้ เช่น inline style หรือ CSS) */
+    .cp-icon {
+      --cp-door-stroke: #000000;
+      --cp-door-stroke-width: 1.25;
+      --cp-door-stroke-opacity: 0;
+      --cp-door-stroke-dasharray: none;
+      --cp-door-stroke-linecap: round;
+      --cp-door-stroke-linejoin: round;
+    }
+    
+    /* กฎสำหรับเส้นขอบประตูที่ปรับได้ทั้งหมด */
+    .cp-door-stroke {
+      stroke: var(--cp-door-stroke);
+      stroke-width: var(--cp-door-stroke-width);
+      stroke-opacity: var(--cp-door-stroke-opacity);
+      stroke-dasharray: var(--cp-door-stroke-dasharray);
+      stroke-linecap: var(--cp-door-stroke-linecap);
+      stroke-linejoin: var(--cp-door-stroke-linejoin);
+      fill: none;
+    }
+    
+    /* ตัวเลือกเพิ่มเติม: ถ้าต้องการให้เส้นขอบประตูหายเมื่อไอคอนถูกเติม ให้ตั้ง --cp-hide-door-when-filled: 1; */
+    .cp-icon {
+      --cp-hide-door-when-filled: 0;
+    }
+    
+    .cp-icon[style*="color:"] .cp-door-stroke {
+      display: var(--cp-hide-door-when-filled, inline);
+    }
+  </style>
+  
+  <defs>
+    <!-- mask เฉพาะเพื่อเว้นช่องประตู (ขาว = เติมได้, ดำ = ห้ามเติม) -->
+    <mask id="cp-house-mask" x="0" y="0" width="24" height="24" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="24" height="24" fill="white" />
+      <!-- วาดรูปประตูเป็นสีดำใน mask เพื่อกันไม่ให้ fill ไหลเข้า -->
+      <path d="M9 20v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6z" fill="black" />
+    </mask>
+  </defs>
+  
+  <!-- หลังค: เติมด้วย currentColor -->
+  <path class="cp-roof-fill" d="M4 11 L12 4 L20 11 Z" fill="currentColor" stroke="none" />
+  
+  <!-- ตัวบ้าน: ชิ้นเดียวที่เติมด้วย currentColor แต่ถูก mask ให้เว้นช่องประตู -->
+  <path class="cp-house-fill" fill="currentColor" stroke="none" mask="url(#cp-house-mask)" fill-rule="evenodd" d="
+          M4 11
+          v8
+          a2 2 0 0 0 2 2
+          h12
+          a2 2 0 0 0 2 -2
+          v-8
+          z
+        " />
+  
+  <!-- เส้นขอบมินิมอลของหลังคและตัวบ้าน (ใช้ currentColor เพื่อให้เปลี่ยนตาม color ได้) -->
+  <path class="cp-roof-stroke" d="M4 11 L12 4 L20 11" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+  <path class="cp-house-stroke" d="M4 11v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- เส้นขอบประตูแยกชิ้น: คลาสเฉพาะสำหรับการคอนโทรลทั้งหมด -->
+  <path class="cp-door-stroke" d="M9 20v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6" />
+  
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="24" height="24" viewBox="0 0 24 24"
+     color="transparent" role="img" aria-label="compass icon"
+     class="cp-icon">
+  <style>
+    /* ตัวแปรเริ่มต้นเฉพาะสำหรับไอคอนนี้ (สามารถ override จากภายนอกได้) */
+    .cp-icon {
+      --cp-needle-stroke: #000000;
+      --cp-needle-stroke-width: 1.25;
+      --cp-needle-stroke-opacity: 0;
+      --cp-needle-stroke-dasharray: none;
+      --cp-needle-linecap: round;
+      --cp-needle-linejoin: round;
+    }
+
+    /* กฎสำหรับเข็ม: ปรับได้ทั้งหมดผ่านตัวแปรที่มีพรีฟิก */
+    .cp-needle {
+      stroke: var(--cp-needle-stroke);
+      stroke-width: var(--cp-needle-stroke-width);
+      stroke-opacity: var(--cp-needle-stroke-opacity);
+      stroke-dasharray: var(--cp-needle-stroke-dasharray);
+      stroke-linecap: var(--cp-needle-linecap);
+      stroke-linejoin: var(--cp-needle-linejoin);
+      fill: none;
+    }
+
+    /* ถ้าต้องการให้เส้นขอบเข็มถูกซ่อนเมื่อไอคอนถูกเติม (optional control):
+       สามารถ override จากภายนอกด้วย --cp-hide-needle-when-filled: 1; */
+    .cp-icon { --cp-hide-needle-when-filled: 0; }
+    svg[style*="color:"] .cp-icon { /* generic detection — override as needed */ }
+    .cp-icon[style*="color:"] .cp-needle { display: var(--cp-hide-needle-when-filled, inline); }
+  </style>
+
+  <defs>
+    <!-- mask เฉพาะของไอคอนนี้ เพื่อป้องกัน fill ไหลเข้าเข็ม -->
+    <mask id="cp-mask" x="0" y="0" width="24" height="24" maskUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="24" height="24" fill="white"/>
+      <path d="M8 16 L10 10 L16 8 L14 14 L8 16 Z" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- ส่วนที่เติมได้ด้วย color (จะถูก mask เพื่อเว้นเข็ม) -->
+  <g class="cp-fillable" fill="currentColor" stroke="none" mask="url(#cp-mask)">
+    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  </g>
+
+  <!-- ขอบวงนอก ใช้ currentColor เพื่อให้เปลี่ยนตาม color ได้ -->
+  <path class="cp-ring" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"
+        fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- เข็ม: คลาสเฉพาะเจาะจงสำหรับการคอนโทรลทั้งหมด -->
+  <path class="cp-needle" d="M8 16 L10 10 L16 8 L14 14 L8 16 Z"/>
+
+</svg>
+</body>
+
+</html>

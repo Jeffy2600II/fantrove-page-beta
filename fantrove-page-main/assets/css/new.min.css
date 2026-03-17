@@ -1,0 +1,136 @@
+body {
+ margin: 0;
+ padding: 0;
+ margin-top: 90px;
+}
+
+.container {
+ margin: 0 20px 50px 20px;
+ text-align: left;
+ padding: 10px;
+ max-width: 600px;
+ background: #FFFFFF;
+ color: #131313;
+ border-radius: 30px;
+ border: 1px solid rgba(19, 180, 127, 0.16);
+}
+
+h1 {  
+    color: #33BE90;  
+    font-size: 14px;  
+    margin: 90px 0 5px 20px;  
+    display: flex;  
+    align-items: center;  /* จัดให้อยู่กลางทั้งในแนวนอนและแนวตั้ง */  
+}
+
+h1 span {
+    display: inline-block;  /* ให้องค์ประกอบภายในอยู่ในแถวเดียวกัน */
+    vertical-align: middle; /* ทำให้ทั้งสองข้อความอยู่ในระดับเดียวกัน */
+    line-height: 1;          /* ช่วยให้ข้อความไม่ยืดสูงเกินไป */
+    margin: 0 0 3px 18px;
+}
+
+ul {
+ list-style-type: none;
+ padding: 0;
+}
+
+ul li {
+ margin: 10px 0;
+ font-size: 0.9em;
+}
+
+/* Mobile-First (ค่าเริ่มต้นใช้ได้กับมือถือ) */
+body {
+    font-size: 14px; /* ขนาดตัวอักษรสำหรับมือถือ */
+}
+
+/* แท็บเล็ตแนวตั้ง */
+@media (min-width: 600px) {
+    body {
+        font-size: 16px; /* ขนาดตัวอักษรสำหรับแท็บเล็ตแนวตั้ง */
+    }
+
+    .container {
+        max-width: 550px; /* ปรับขนาด container สำหรับแท็บเล็ต */
+    }
+
+    h1 {
+        font-size: 18px; /* ขนาดตัวอักษรหัวเรื่องสำหรับแท็บเล็ต */
+    }
+}
+
+/* แท็บเล็ตแนวนอน */
+@media (min-width: 768px) {
+    body {
+        font-size: 18px; /* ขนาดตัวอักษรสำหรับแท็บเล็ตแนวนอน */
+    }
+
+    .container {
+        max-width: 700px; /* ปรับขนาด container สำหรับแท็บเล็ตแนวนอน */
+    }
+
+    h1 {
+        font-size: 20px; /* ขนาดตัวอักษรหัวเรื่องสำหรับแท็บเล็ตแนวนอน */
+    }
+}
+
+/* เดสก์ท็อปเล็ก */
+@media (min-width: 1024px) {
+    body {
+        font-size: 20px; /* ขนาดตัวอักษรสำหรับเดสก์ท็อปเล็ก */
+    }
+
+    .container {
+        max-width: 900px; /* ปรับขนาด container สำหรับเดสก์ท็อปเล็ก */
+    }
+
+    h1 {
+        font-size: 22px; /* ขนาดตัวอักษรหัวเรื่องสำหรับเดสก์ท็อปเล็ก */
+    }
+}
+
+/* เดสก์ท็อปกลาง */
+@media (min-width: 1280px) {
+    body {
+        font-size: 22px; /* ขนาดตัวอักษรสำหรับเดสก์ท็อปกลาง */
+    }
+
+    .container {
+        max-width: 1100px; /* ปรับขนาด container สำหรับเดสก์ท็อปกลาง */
+    }
+
+    h1 {
+        font-size: 24px; /* ขนาดตัวอักษรหัวเรื่องสำหรับเดสก์ท็อปกลาง */
+    }
+}
+
+/* เดสก์ท็อปใหญ่ */
+@media (min-width: 1440px) {
+    body {
+        font-size: 24px; /* ขนาดตัวอักษรสำหรับเดสก์ท็อปใหญ่ */
+    }
+
+    .container {
+        max-width: 1200px; /* ปรับขนาด container สำหรับเดสก์ท็อปใหญ่ */
+    }
+
+    h1 {
+        font-size: 26px; /* ขนาดตัวอักษรหัวเรื่องสำหรับเดสก์ท็อปใหญ่ */
+    }
+}
+
+/* หน้าจอ 4K+ */
+@media (min-width: 1920px) {
+    body {
+        font-size: 26px; /* ขนาดตัวอักษรสำหรับหน้าจอ 4K+ */
+    }
+
+    .container {
+        max-width: 1400px; /* ปรับขนาด container สำหรับหน้าจอ 4K+ */
+    }
+
+    h1 {
+        font-size: 28px; /* ขนาดตัวอักษรหัวเรื่องสำหรับหน้าจอ 4K+ */
+    }
+}

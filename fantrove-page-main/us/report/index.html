@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="assets/js/lang-proxy.js"></script>
+    <script src="assets/js/lang-sync.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-translate="contact-report-title"></title>
+
+    <!-- Preload + fallback CSS -->
+    <link rel="preload" href="/assets/css/setting.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/setting.min.css"></noscript>
+
+    <link rel="preload" href="/assets/css/bg.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/bg.min.css"></noscript>
+
+    <!-- Other CSS -->
+    <link rel="stylesheet" href="/assets/css/top-navigation-bar.min.css" media="all" />
+    <link rel="stylesheet" href="/assets/css/language-error.min.css" media="all" />
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/fantrove-hub360.ico" />
+</head>
+<body style="opacity:0">
+
+    <!-- Navigation Bar -->
+    <nav>
+        <button class="back-button" id="back-button" aria-label="Go back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 19-7-7 7-7" />
+            </svg>
+        </button>
+        <span class="page-title" data-translate="page-report"></span>
+    </nav>
+
+    <main>
+        <section class="con">
+        <h1 data-translate="contact-report-title" style="margin-bottom:1.5rem;"></h1>
+        <p class="text-content" data-translate="contact-report-desc" style="margin-bottom:1.5rem;">
+             <br/><br/>
+            
+        </p>
+        </section>
+
+        <div class="pad">
+        <div class="setting-item">
+            <label for="report-method" data-translate="contact-report-method-label"></label>
+            <section style="margin-bottom:1rem;">
+                <select id="report-method" class="setting-item select">
+                    <option value="form" data-translate="contact-method-form"></option>
+                </select>
+            </section>
+        </div>
+
+        <div class="setting-item" id="report-form-section">
+            <label for="report-form-lang" data-translate="contact-form-lang-label"></label>
+            <section style="margin-bottom:1rem;">
+                <select id="report-form-lang" class="setting-item select m5">
+                    <!-- JS เติม options ภาษาอัตโนมัติ -->
+                </select>
+                <button class="buttons tap" style="width:100%;" id="goto-report-btn"></button>
+            </section>
+        </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/language.min.js"></script>
+    <script defer src="/assets/js/footer-template.js"></script>
+    <script defer src="/assets/js/back-button.min.js"></script>
+
+    <script>
+    // URL ฟอร์มรายงานแยกตามภาษา
+    const reportFormUrls = {
+        en: "https://docs.google.com/forms/d/e/1FAIpQLSe_en_report_form_url/viewform",
+        th: "https://docs.google.com/forms/d/e/1FAIpQLSe_th_report_form_url/viewform"
+        // ขยายภาษาได้เรื่อย ๆ
+    };
+
+    // ข้อความปุ่มแยกตามภาษา
+    const reportFormBtnText = {
+        en: "Go to Report Form",
+        th: "ไปที่แบบฟอร์มรายงาน",
+        default: "Go to Report Form"
+    };
+
+    // โหลดตัวเลือกภาษาให้ select จากไฟล์ JSON หรือ localStorage
+    async function loadLangOptions() {
+        const langSelect = document.getElementById('report-form-lang');
+        langSelect.innerHTML = '';
+        let langs = {};
+        try {
+            let localConfigRaw = localStorage.getItem('__lang_cfg');
+            if(localConfigRaw) {
+                langs = JSON.parse(localConfigRaw);
+            } else {
+                const resp = await fetch('/assets/json/language.min.json');
+                langs = await resp.json();
+            }
+        } catch(e) {
+            console.warn("Failed loading languages:", e);
+        }
+        Object.entries(langs).forEach(([code, data]) => {
+            const opt = document.createElement('option');
+            opt.value = code;
+            opt.textContent = data.label;
+            langSelect.appendChild(opt);
+        });
+        // ตั้งค่า default เป็นภาษาผู้ใช้ถ้ามี
+        const selectedLang = localStorage.getItem('selectedLang');
+        if(selectedLang && langSelect.querySelector(`option[value="${selectedLang}"]`)) {
+            langSelect.value = selectedLang;
+        }
+        updateGotoReportBtnText();
+    }
+
+    // แม้มีช่องทางเดียว ยังเก็บฟังก์ชันนี้ไว้เพื่อขยายในอนาคตและ UI consistency
+    function updateReportMethod() {
+        document.getElementById('report-form-section').style.display = '';
+    }
+
+    // อัปเดตข้อความปุ่มตามภาษาที่เลือก
+    function updateGotoReportBtnText() {
+        const lang = document.getElementById('report-form-lang').value;
+        const btn = document.getElementById('goto-report-btn');
+        btn.textContent = reportFormBtnText[lang] || reportFormBtnText.default;
+    }
+
+    // event listeners
+    document.getElementById('report-form-lang').addEventListener('change', updateGotoReportBtnText);
+    document.getElementById('goto-report-btn').addEventListener('click', () => {
+        const lang = document.getElementById('report-form-lang').value;
+        const url = reportFormUrls[lang] || reportFormUrls['en'];
+        window.open(url, '_blank');
+    });
+
+    document.getElementById('report-method').addEventListener('change', updateReportMethod);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadLangOptions();
+        updateReportMethod();
+        document.body.style.opacity = '1'; // แสดงหน้าเมื่อโหลดเสร็จ
+    });
+    </script>
+
+    <script defer src="/assets/js/lang-links.js"></script>
+    <script src="/fantrove-console-bridge.js"></script>
+</body>
+</html>

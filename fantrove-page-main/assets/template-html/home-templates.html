@@ -1,0 +1,28 @@
+<template id="home-main-template">
+  <section class="n">
+    <div class="text-h">
+      <h1 data-ref="type-name"></h1>
+      <button wave="c=rgba(28, 255, 164, 0.0)" data-ref="view-all-btn" style="user-select: none;"></button>
+    </div>
+    <div data-ref="categories-container"></div>
+  </section>
+</template>
+
+<template id="home-category-template">
+  <div class="category-section">
+    <h2 data-ref="category-name"></h2>
+    <div class="content">
+      <div class="carousel-container">
+        <div class="carousel-track" data-ref="track">
+          </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="home-item-card-template">
+  <div class="item-card" style="cursor: pointer; user-select: none;">
+    <div class="emoji" data-ref="item-text"></div>
+    <div class="name" data-ref="item-name"></div>
+  </div>
+</template>

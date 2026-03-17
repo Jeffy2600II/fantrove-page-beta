@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="assets/js/lang-proxy.js"></script>
+    <script src="assets/js/lang-sync.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-translate="contact-other-title"></title>
+
+    <!-- Preload & Fallback for critical CSS -->
+    <link rel="preload" href="/assets/css/setting.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/setting.min.css"></noscript>
+
+    <link rel="preload" href="/assets/css/bg.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/bg.min.css"></noscript>
+
+    <!-- Other CSS -->
+    <link rel="stylesheet" href="/assets/css/top-navigation-bar.min.css" media="all" />
+    <link rel="stylesheet" href="/assets/css/language-error.min.css" media="all" />
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/fantrove-hub360.ico" />
+</head>
+<body style="opacity:0">
+
+    <!-- Navigation Bar -->
+    <nav>
+        <button class="back-button" id="back-button" aria-label="Go back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 19-7-7 7-7" />
+            </svg>
+        </button>
+        <span class="page-title" data-translate="page-contact"></span>
+    </nav>
+
+    <main>
+        <section class="con">
+        <h1 data-translate="contact-other-title" style="margin-bottom:1.5rem;"></h1>
+
+        <p class="text-content" data-translate="contact-other-desc" style="margin-bottom:1.5rem;">
+            
+        </p>
+        </section>
+
+        <div class="pad">
+        <div class="setting-item">
+            <label for="contact-method" data-translate="contact-method-label"></label>
+            <section style="margin-bottom:1rem;">
+                <select id="contact-method" class="setting-item select">
+                    <option value="gmail" data-translate="contact-method-gmail"></option>
+                    <option value="form" data-translate="contact-method-form"></option>
+                </select>
+            </section>
+        </div>
+
+        <div class="setting-item" id="contact-form-section" style="display:none;">
+            <label for="contact-form-lang" data-translate="contact-form-lang-label"></label>
+            <section>
+                <select id="contact-form-lang" class="setting-item select m5">
+                    <!-- Dynamic options populated by JS -->
+                </select>
+                <button class="buttons tap" style="width:100%;" id="goto-form-btn"></button>
+            </section>
+        </div>
+
+        <div class="setting-item" id="gmail-section">
+            <label data-translate="contact-gmail-text"></label>
+            <section>
+                <button onclick="window.location.href='mailto:fantrove.official@gmail.com'" class="buttons tap" data-translate="contact-gmail-btn">
+                    <!--
+                    category: Communication
+                    tags: [message, mail, email, gmail, paper, airplane, aeroplane]
+                    version: "1.0"
+                    unicode: "eb1e"
+                    -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#000000"
+                      stroke-width="1.25"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M10 14l11 -11" />
+                      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
+                    </svg>
+                    
+                </button>
+            </section>
+        </div>
+        </div>
+    </main>
+
+    <!-- JS: Language loader -->
+    <script src="/assets/js/language.min.js"></script>
+    <!-- Deferred JS -->
+    <script defer src="/assets/js/footer-template.js"></script>
+    <script defer src="/assets/js/back-button.min.js"></script>
+
+    <script>
+    // URLs for Google Forms by language
+    const contactFormUrls = {
+        en: "https://docs.google.com/forms/d/e/1FAIpQLSe_en_contact_form_url/viewform",
+        th: "https://docs.google.com/forms/d/e/1FAIpQLSe_th_contact_form_url/viewform"
+        // เพิ่มภาษาอื่นๆตามต้องการได้
+    };
+
+    // Button label text by language
+    const contactFormBtnText = {
+        en: "Go to Contact Form",
+        th: "ไปที่แบบฟอร์มติดต่อ",
+        default: "Go to Contact Form"
+    };
+
+    // โหลดตัวเลือกภาษาให้กับ select #contact-form-lang
+    async function loadLangOptions() {
+        const langSelect = document.getElementById('contact-form-lang');
+        langSelect.innerHTML = '';
+        let langs = {};
+        try {
+            let localConfigRaw = localStorage.getItem('__lang_cfg');
+            if(localConfigRaw) {
+                langs = JSON.parse(localConfigRaw);
+            } else {
+                const resp = await fetch('/assets/json/language.min.json');
+                langs = await resp.json();
+            }
+        } catch(e) {
+            console.warn("Error loading languages:", e);
+        }
+        Object.entries(langs).forEach(([code, data]) => {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = data.label;
+            langSelect.appendChild(option);
+        });
+        // ตั้งค่า default ให้ตรงกับภาษาผู้ใช้ถ้ามี
+        const selectedLang = localStorage.getItem('selectedLang');
+        if(selectedLang && langSelect.querySelector(`option[value="${selectedLang}"]`)) {
+            langSelect.value = selectedLang;
+        }
+        updateGotoFormBtnText();
+    }
+
+    // แสดง/ซ่อน ส่วน Gmail กับ Form ตามการเลือก
+    function updateContactMethod() {
+        const val = document.getElementById('contact-method').value;
+        document.getElementById('contact-form-section').style.display = val === 'form' ? '' : 'none';
+        document.getElementById('gmail-section').style.display = val === 'gmail' ? '' : 'none';
+    }
+
+    // อัปเดตข้อความปุ่มตามภาษา
+    function updateGotoFormBtnText() {
+        const lang = document.getElementById('contact-form-lang').value;
+        const btn = document.getElementById('goto-form-btn');
+        btn.textContent = contactFormBtnText[lang] || contactFormBtnText.default;
+    }
+
+    // Event listeners
+    document.getElementById('contact-form-lang').addEventListener('change', updateGotoFormBtnText);
+
+    document.getElementById('goto-form-btn').addEventListener('click', () => {
+        const lang = document.getElementById('contact-form-lang').value;
+        const url = contactFormUrls[lang] || contactFormUrls['en'];
+        window.open(url, '_blank');
+    });
+
+    document.getElementById('contact-method').addEventListener('change', updateContactMethod);
+
+    // On page load
+    document.addEventListener('DOMContentLoaded', () => {
+        loadLangOptions();
+        updateContactMethod();
+
+        // ทำให้หน้าแสดงผลได้ (opacity:0 → 1) หลังโหลดเสร็จ
+        document.body.style.opacity = '1';
+    });
+    </script>
+
+    <script defer src="/assets/js/lang-links.js"></script>
+    <script src="/fantrove-console-bridge.js"></script>
+</body>
+</html>

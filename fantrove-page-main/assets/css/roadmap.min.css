@@ -1,0 +1,162 @@
+/* พื้นฐาน */
+body {
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 20px 10px;
+}
+
+header {
+    text-align: center;
+    background-color: #13b47f;
+    color: white;
+    padding: 20px 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+h2, h3 {
+    color: #13b47f;
+    font-weight: 600;
+}
+
+h2 span {
+ margin-right: 5px;
+}
+
+#current-version {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: #13b47f;
+}
+
+#feature-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#feature-list li {
+    padding: 12px;
+    margin: 30px 0;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ดูพรีเมียม */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* ฟังก์ชันที่เผยแพร่แล้ว */
+.past-feature {
+    background-color: #F5F5F5;
+    border: 0.5px solid #D1D1D1;
+    color: #666;
+}
+
+.past-feature small {
+    display: block;
+    font-size: 0.9em;
+    color: #13b47f;
+    font-weight: 500;
+}
+
+/* ฟังก์ชันที่กำลังพัฒนาในลำดับถัดไป */
+.upcoming-feature {
+    background-color: #F8FCFF;
+    border: 1px dashed #CBCBCB;
+    color: #4A4A4A;
+    font-weight: 600;
+}
+
+.upcoming-feature small {
+    display: block;
+    font-size: 0.8em;
+    color: #A7A7B3;
+    font-weight: 500;
+}
+
+.new-feature {
+    position: relative;
+    background-image: url(https://fantrove.github.io/assets/images/bokeh-1780209_1280.png);
+    color: #FFFFFF;
+    padding: 15px;
+    border: 1px solid #27C5AA;
+}
+
+.new-feature small {
+    display: block;
+    font-size: 0.8em;
+    color: #2AFF53;
+    font-weight: 400;
+}
+
+/* ฟังก์ชันที่ยังไม่ได้เผยแพร่ */
+.not-feature {
+    background-color: #F0F0F0;
+    color: #8F8F8F;
+    font-style: italic;
+    border: 1px dashed #CBCBCB;
+}
+
+/* ปรับสไตล์สำหรับเครื่องหมายคำถาม */
+.question-mark {
+    margin-left: 10px;
+    font-size: 1.8em;
+    color: #0A9869;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.question-mark:hover {
+    color: #13b47f;
+}
+
+/* แท็บเล็ตแนวตั้ง */
+@media (min-width: 600px) {
+    body { font-size: 15px; }
+    .container { width: 85%; }
+}
+
+/* แท็บเล็ตแนวนอน */
+@media (min-width: 768px) {
+    body { font-size: 16px; }
+    .container { width: 80%; }
+    h1 { font-size: 2.8em; }
+}
+
+/* เดสก์ท็อปเล็ก */
+@media (min-width: 1024px) {
+    body { font-size: 17px; }
+    .container { width: 75%; }
+    header { padding: 25px; }
+    h1 { font-size: 3em; }
+}
+
+/* เดสก์ท็อปกลาง */
+@media (min-width: 1280px) {
+    body { font-size: 18px; }
+    .container { width: 70%; }
+    h1 { font-size: 3.2em; }
+}
+
+/* เดสก์ท็อปใหญ่ */
+@media (min-width: 1440px) {
+    body { font-size: 19px; }
+    .container { width: 65%; }
+    h1 { font-size: 3.4em; }
+}
+
+/* หน้าจอ 4K+ */
+@media (min-width: 1920px) {
+    body { font-size: 20px; }
+    .container { width: 60%; }
+    h1 { font-size: 3.6em; }
+}
